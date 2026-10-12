@@ -295,6 +295,12 @@
     </div>
     <div class="grid">
       <div class="card">
+        <span class="label">Post-training</span>
+        <h3>DPO reliability audit</h3>
+        <p>DPO with LoRA on Qwen2.5-0.5B across a beta sweep: 0.66 to 0.70 held-out preference accuracy, but most low-beta reward gain came from longer answers, and confidence rose as accuracy fell with beta. A companion study shows safety judges calibrated on ordinary prompts break on jailbreaks.</p>
+        <div class="acts"><a href="https://github.com/Shadman19/dpo-reliability-audit" target="_blank" rel="noopener">Code and results</a></div>
+      </div>
+      <div class="card">
         <span class="label">Research code</span>
         <h3>Encrypted post-deployment calibration</h3>
         <p>Reference implementation for the ICNC 2026 paper. Only the final classifier layer is updated, under CKKS encryption, with a Chebyshev approximation of softmax. Notebooks for PathMNIST, PneumoniaMNIST and MIMIC-III.</p>
