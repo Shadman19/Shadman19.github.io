@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shadman Pathan</title>
+<meta name="description" content="Shadman Mahmood Khan Pathan. Research on calibration and uncertainty under distribution shift, adversarial robustness, and privacy-preserving ML in medical AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F5F7F9; --surface:#FFFFFF; --surface-2:#EBF0F4;
+    --ink:#131B24; --muted:#56636F; --faint:#85919C;
+    --accent:#0E7C86; --accent-strong:#0A5E66; --accent-soft:#E0EFF0;
+    --warn:#C2643F;
+    --line:#DAE1E8; --line-strong:#C3CDD7;
+    --f-display:"Spectral",Georgia,"Times New Roman",serif;
+    --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --maxw:64rem;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0D131A; --surface:#141C25; --surface-2:#1A242F;
+      --ink:#E7ECF1; --muted:#9BA8B5; --faint:#6E7C8A;
+      --accent:#45C2B6; --accent-strong:#6AD4C8; --accent-soft:#12302F;
+      --warn:#E08A64;
+      --line:#25303C; --line-strong:#34424F;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0D131A; --surface:#141C25; --surface-2:#1A242F;
+    --ink:#E7ECF1; --muted:#9BA8B5; --faint:#6E7C8A;
+    --accent:#45C2B6; --accent-strong:#6AD4C8; --accent-soft:#12302F;
+    --warn:#E08A64;
+    --line:#25303C; --line-strong:#34424F;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding-inline:clamp(1rem,4vw,2.5rem)}
+  h1,h2,h3{font-family:var(--f-display); text-wrap:balance; margin:0}
+  a{color:inherit}
+  p{margin:0}
+  .topbar{position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); background:color-mix(in srgb,var(--ground) 85%,transparent); border-bottom:1px solid var(--line)}
+  .topbar .row{display:flex; align-items:center; justify-content:space-between; height:56px; gap:1rem}
+  .brand{font-family:var(--f-display); font-weight:600; font-size:1.05rem; text-decoration:none}
+  .nav{display:flex; gap:1.3rem; align-items:center}
+  .nav a{font-size:.86rem; color:var(--muted); text-decoration:none}
+  .nav a:hover{color:var(--ink)}
+  @media (max-width:700px){.nav a{display:none}}
+  .themetgl{border:1px solid var(--line-strong); background:var(--surface); color:var(--muted); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:.95rem}
+  .themetgl:hover{color:var(--ink); border-color:var(--accent)}
+  .hero{display:grid; grid-template-columns:minmax(0,1fr) 15rem; gap:clamp(1.5rem,4vw,3rem); align-items:center; padding-block:clamp(3rem,8vw,5rem) clamp(2rem,5vw,3rem)}
+  @media (max-width:760px){.hero{grid-template-columns:1fr}.diagram{max-width:15rem}}
+  .field{font-family:var(--f-mono); font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:.9rem}
+  .hero h1{font-size:clamp(2.2rem,5.6vw,3.6rem); font-weight:600; line-height:1.05; letter-spacing:-.015em}
+  .question{font-family:var(--f-display); font-style:italic; font-size:clamp(1.2rem,2.6vw,1.55rem); color:var(--accent-strong); margin-top:.9rem; line-height:1.35}
+  .lede{max-width:60ch; color:var(--muted); font-size:1.04rem; margin-top:1.2rem}
+  .meta{font-size:.86rem; color:var(--faint); margin-top:1.2rem}
+  .meta b{color:var(--ink); font-weight:500}
+  .links{display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.5rem}
+  .links a{display:inline-flex; align-items:center; text-decoration:none; font-size:.86rem; padding:.48rem .85rem; border:1px solid var(--line-strong); border-radius:999px; background:var(--surface); transition:border-color .15s,color .15s}
+  .links a:hover{border-color:var(--accent); color:var(--accent-strong)}
+  .diagram{width:100%; max-width:100%}
+  .diagram figcaption{font-family:var(--f-mono); font-size:.7rem; color:var(--faint); margin-top:.4rem; line-height:1.5}
+  .diagram svg{display:block; width:100%; height:auto}
+  .k-ideal{stroke:var(--faint)} .k-bad{stroke:var(--warn)} .k-good{stroke:var(--accent)}
+  .k-axis{stroke:var(--line-strong)} .k-lbl{fill:var(--faint); font-family:var(--f-mono); font-size:10px}
+  .legend{display:flex; gap:.9rem; flex-wrap:wrap; font-family:var(--f-mono); font-size:.7rem; color:var(--muted); margin-top:.5rem}
+  .legend i{display:inline-block; width:14px; height:2px; vertical-align:middle; margin-right:.35rem}
+  section{padding-block:clamp(2.2rem,5vw,3.2rem); border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:1.5rem}
+  .sec-head h2{font-size:clamp(1.35rem,3vw,1.7rem); font-weight:600}
+  .sec-head p{color:var(--muted); margin-top:.35rem; max-width:62ch}
+  .label{font-family:var(--f-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent)}
+  .threads{display:grid; grid-template-columns:repeat(auto-fit,minmax(17rem,1fr)); gap:1.6rem 2.2rem}
+  .thread{min-width:0; display:flex; flex-direction:column; gap:.4rem}
+  .thread h3{font-size:1.12rem; font-weight:600; line-height:1.3}
+  .thread p{color:var(--muted); font-size:.94rem}
+  .thread .ev{font-family:var(--f-mono); font-size:.76rem; color:var(--ink); margin-top:.2rem}
+  .pubs{display:flex; flex-direction:column}
+  .pub{display:grid; grid-template-columns:6.5rem minmax(0,1fr); gap:1.2rem; padding-block:1rem; border-bottom:1px solid var(--line)}
+  .pub:last-child{border-bottom:0}
+  .pub .yr{font-family:var(--f-mono); font-size:.8rem; color:var(--accent-strong); font-variant-numeric:tabular-nums; padding-top:.15rem}
+  .pub .ttl{font-weight:500; line-height:1.4}
+  .pub .ttl a{text-decoration-color:var(--line-strong); text-underline-offset:3px}
+  .pub .ttl a:hover{text-decoration-color:var(--accent)}
+  .pub .venue{color:var(--muted); font-size:.88rem; margin-top:.25rem}
+  .badge{display:inline-block; font-family:var(--f-mono); font-size:.66rem; letter-spacing:.04em; color:var(--accent-strong); background:var(--accent-soft); border:1px solid var(--line); padding:.05rem .45rem; border-radius:5px; margin-left:.35rem; vertical-align:.08em}
+  .sub{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin:1.8rem 0 .3rem}
+  @media (max-width:540px){.pub{grid-template-columns:1fr; gap:.2rem}}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(16.5rem,1fr)); gap:1rem}
+  .card{min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.2rem 1.25rem; display:flex; flex-direction:column; gap:.45rem}
+  .card h3{font-size:1.05rem; font-weight:600; line-height:1.3}
+  .card p{color:var(--muted); font-size:.9rem; flex:1}
+  .card .acts{display:flex; gap:1rem; font-family:var(--f-mono); font-size:.78rem; margin-top:.3rem}
+  .card .acts a{color:var(--accent-strong); text-decoration:none}
+  .card .acts a:hover{text-decoration:underline}
+  .rows{display:flex; flex-direction:column; gap:1.3rem}
+  .item{display:grid; grid-template-columns:8rem minmax(0,1fr); gap:1.3rem}
+  .item .when{font-family:var(--f-mono); font-size:.78rem; color:var(--faint); font-variant-numeric:tabular-nums; padding-top:.15rem}
+  .item .role{font-weight:600}
+  .item .org{color:var(--accent-strong); font-size:.94rem}
+  .item .note{color:var(--muted); font-size:.9rem; margin-top:.3rem; max-width:62ch}
+  @media (max-width:540px){.item{grid-template-columns:1fr; gap:.2rem}}
+  .two{display:grid; grid-template-columns:repeat(auto-fit,minmax(18rem,1fr)); gap:2rem 3rem}
+  .two > div{min-width:0}
+  .list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.75rem}
+  .list li{color:var(--muted); font-size:.94rem; padding-left:1rem; border-left:2px solid var(--line-strong)}
+  .list b{color:var(--ink); font-weight:500}
+  .two h3{font-family:var(--f-body); font-size:.95rem; font-weight:600; margin-bottom:.8rem}
+  .contact{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem 2rem}
+  .contact p{color:var(--muted); max-width:46ch}
+  .email{display:flex; align-items:center; gap:.5rem; font-family:var(--f-mono); font-size:.9rem; background:var(--surface); border:1px solid var(--line-strong); border-radius:8px; padding:.45rem .5rem .45rem .8rem}
+  .email span{user-select:all}
+  .email button{font:inherit; font-size:.75rem; border:1px solid var(--line-strong); background:var(--surface-2); color:var(--ink); border-radius:6px; padding:.2rem .55rem; cursor:pointer}
+  .email button:hover{border-color:var(--accent)}
+  footer{padding-block:2rem 2.6rem; color:var(--faint); font-size:.8rem; border-top:1px solid var(--line)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap row">
+    <a class="brand" href="#top">Shadman Pathan</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#code">Code</a>
+      <a href="#talks">Talks</a>
+      <a href="#contact">Contact</a>
+      <button class="themetgl" id="themetgl" aria-label="Toggle dark mode" title="Toggle theme">&#9680;</button>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap" id="top">
+
+  <header class="hero">
+    <div>
+      <p class="field">Trustworthy machine learning under distribution shift</p>
+      <h1>Shadman Mahmood<br>Khan Pathan</h1>
+      <p class="question">Can we tell when a deployed model should not be trusted?</p>
+      <p class="lede">I work on calibration and uncertainty under distribution shift, adversarial robustness, and privacy-preserving machine learning, mostly in medical AI, where a confident wrong answer is costly. My papers link to their code, and my demos show the systems side.</p>
+      <p class="meta"><b>PhD Candidate</b>, Old Dominion University &middot; 10+ publications &middot; Norfolk, VA</p>
+      <div class="links">
+        <a href="https://scholar.google.com/citations?user=zpxbdEEAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://github.com/Shadman19" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/shadmanmahmood9" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#contact">Email</a>
+      </div>
+    </div>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 240 236" role="img" aria-label="Reliability diagram: a perfectly calibrated diagonal, an overconfident curve below it, and a recalibrated curve close to the diagonal">
+        <line class="k-axis" x1="36" y1="204" x2="228" y2="204" stroke-width="1"/>
+        <line class="k-axis" x1="36" y1="204" x2="36" y2="12" stroke-width="1"/>
+        <line class="k-ideal" x1="36" y1="204" x2="228" y2="12" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <polyline class="k-bad" fill="none" stroke-width="2.2" points="36.0,204.0 45.6,203.7 55.2,202.8 64.8,201.0 74.4,198.4 84.0,194.9 93.6,190.4 103.2,184.9 112.8,178.4 122.4,170.9 132.0,162.2 141.6,152.5 151.2,141.6 160.8,129.6 170.4,116.4 180.0,102.0 189.6,86.5 199.2,69.7 208.8,51.7 218.4,32.5 228.0,12.0"/>
+        <polyline class="k-good" fill="none" stroke-width="2.2" points="36.0,204.0 45.6,192.4 55.2,181.1 64.8,170.2 74.4,159.9 84.0,150.3 93.6,141.4 103.2,133.1 112.8,125.3 122.4,117.6 132.0,110.0 141.6,102.1 151.2,93.8 160.8,84.9 170.4,75.3 180.0,64.9 189.6,54.0 199.2,42.7 208.8,31.1 218.4,19.5 228.0,12.0"/>
+        <text class="k-lbl" x="36" y="218" text-anchor="middle">0</text>
+        <text class="k-lbl" x="228" y="218" text-anchor="middle">1</text>
+        <text class="k-lbl" x="28" y="207" text-anchor="end">0</text>
+        <text class="k-lbl" x="28" y="15" text-anchor="end">1</text>
+        <text class="k-lbl" x="132" y="232" text-anchor="middle">confidence</text>
+        <text class="k-lbl" x="12" y="108" text-anchor="middle" transform="rotate(-90 12 108)">accuracy</text>
+      </svg>
+      <div class="legend"><span><i style="background:var(--warn)"></i>overconfident</span><span><i style="background:var(--accent)"></i>recalibrated</span></div>
+      <figcaption>Illustrative reliability diagram. Points on the dashed line mean the model's confidence matches how often it is right.</figcaption>
+    </figure>
+  </header>
+
+  <section id="research">
+    <div class="sec-head">
+      <h2>Research</h2>
+      <p>Three threads, one question: knowing when a model's output can be relied on, and fixing it when it cannot.</p>
+    </div>
+    <div class="threads">
+      <div class="thread">
+        <span class="label">Calibration under shift</span>
+        <h3>Recalibrating a deployed model on encrypted features</h3>
+        <p>A model that drifts at a new hospital is corrected on CKKS-encrypted features, so the hospital shares no raw data, logits or gradients. The work also showed that the approximations that make encryption practical can quietly distort a model's confidence even when it still separates classes well.</p>
+        <p class="ev">IEEE ICNC 2026 &middot; about 2 s per correction on a CPU, 64-dimensional features</p>
+      </div>
+      <div class="thread">
+        <span class="label">Adversarial robustness</span>
+        <h3>How segmentation models fail when someone wants them to</h3>
+        <p>A learned noise patch makes a brain tumor segmentation U-Net suppress the tumor mask, turning a visible lesion into a false negative. The point is the failure mode in a safety-critical setting.</p>
+        <p class="ev">IEEE ICCIT 2023</p>
+      </div>
+      <div class="thread">
+        <span class="label">Reliable medical AI</span>
+        <h3>Flagging inputs and cases a model should not handle alone</h3>
+        <p>Per-lead ECG quality estimation trained on synthetic corruption labels and evaluated on PTB-XL, BUT QDB and CinC 2011; uncertainty for flagging tumors a CT detector misses, evaluated on 1,948 external scans; selective deferral of molecular tests under tissue-source shift; encrypted pooled recalibration across ICU hospitals.</p>
+        <p class="ev">Manuscripts in preparation; code released for the ECG and eICU studies</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="sec-head"><h2>Publications</h2></div>
+    <div class="pubs">
+      <div class="pub">
+        <div class="yr">2026</div>
+        <div>
+          <div class="ttl"><a href="https://doi.org/10.1109/ICNC68183.2026.11416991" target="_blank" rel="noopener">Privacy-Preserving Post Deployment Model Calibration with Fully Homomorphic Encryption</a></div>
+          <div class="venue">Pathan, S. M. K., Wang, Q., Takeshita, J., Imran, S. B., Shetty, S. &middot; IEEE International Conference on Computing, Networking and Communications (ICNC)</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2026</div>
+        <div>
+          <div class="ttl">When Does a Peer's Classifier Head Help? Encrypted Cross-Institution Inference Under Representation Mismatch and Small Label Budgets</div>
+          <div class="venue">Pathan, S. M. K., et al. &middot; IEEE Access<span class="badge">UNDER REVIEW</span></div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2026</div>
+        <div>
+          <div class="ttl">The Gut-Heart Axis: Exploring the Role of the Gut Microbiome in Cardiovascular Health. A Focused Systematic Review</div>
+          <div class="venue">Makkieh, Y., et al. (incl. Pathan, S. M. K.) &middot; American Heart Journal Plus</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2024</div>
+        <div>
+          <div class="ttl">Integrated Machine Learning and Deep Learning Models for Cardiovascular Disease Risk Prediction: A Comprehensive Comparative Study</div>
+          <div class="venue">Pathan, S. M. K., Imran, S. B. &middot; Journal of Intelligent Learning Systems and Applications</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2023</div>
+        <div>
+          <div class="ttl"><a href="https://doi.org/10.1109/ICCIT60459.2023.10441583" target="_blank" rel="noopener">False Negative Induction in Brain Tumor Segmentation by Trained Noise Attack</a></div>
+          <div class="venue">Pathan, S. M. K., Imran, S. B. &middot; 26th International Conference on Computer and Information Technology (ICCIT), IEEE</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2022</div>
+        <div>
+          <div class="ttl">Investigation on Classification of Motor Imagery Signal Using Bidirectional LSTM with Effect of Dropout Layers</div>
+          <div class="venue">Pathan, S. M. K., et al. &middot; IEEE</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2019</div>
+        <div>
+          <div class="ttl">Implementation of Faster R-CNN in Paddy Plant Disease Recognition System</div>
+          <div class="venue">Pathan, S. M. K., et al. &middot; IEEE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">Manuscripts in preparation</div>
+    <div class="pubs">
+      <div class="pub">
+        <div class="yr">ECG</div>
+        <div>
+          <div class="ttl">Label-free per-lead ECG quality detection</div>
+          <div class="venue">Trained on PTB-XL with synthetic corruption labels only; transfers to real quality annotations on PTB-XL, BUT QDB and CinC 2011. <a href="https://github.com/Shadman19/ecg-lead-quality-locked-analysis" target="_blank" rel="noopener">Code and locked analysis plan</a></div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">ICU</div>
+        <div>
+          <div class="ttl">Gains from encrypted pooled recalibration at eICU hospitals with few calibration deaths depended on base-model class weighting and comparator</div>
+          <div class="venue"><a href="https://github.com/Shadman19/privcal-eicu" target="_blank" rel="noopener">Code</a> &middot; <a href="https://doi.org/10.5281/zenodo.23018561" target="_blank" rel="noopener">Archived on Zenodo</a></div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">CT</div>
+        <div>
+          <div class="ttl">Uncertainty for flagging tumors a CT detector misses</div>
+          <div class="venue">Evaluated on 1,948 external scans.</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">Molecular</div>
+        <div>
+          <div class="ttl">Selective deferral of molecular tests under tissue-source shift</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="sec-head">
+      <h2>Code and demos</h2>
+      <p>Research code first, then systems I built to understand how models behave in practice. Every demo runs in the browser with no sign-up.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="label">Research code</span>
+        <h3>Encrypted post-deployment calibration</h3>
+        <p>Reference implementation for the ICNC 2026 paper. Only the final classifier layer is updated, under CKKS encryption, with a Chebyshev approximation of softmax. Notebooks for PathMNIST, PneumoniaMNIST and MIMIC-III.</p>
+        <div class="acts"><a href="https://github.com/Shadman19/encrypted-calibration-fhe" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">Research code</span>
+        <h3>Encrypted pooled recalibration (eICU)</h3>
+        <p>Frozen analysis, aggregate-only audits, a pre-run analysis lock and a protocol-fixed simulation. Contains no patient records; every file is checksummed.</p>
+        <div class="acts"><a href="https://github.com/Shadman19/privcal-eicu" target="_blank" rel="noopener">Code</a><a href="https://doi.org/10.5281/zenodo.23018561" target="_blank" rel="noopener">Zenodo</a></div>
+      </div>
+      <div class="card">
+        <span class="label">Research code</span>
+        <h3>Per-lead ECG quality detector</h3>
+        <p>Locked analysis plan, hashes and result tables, including an augmentation-matched control for whether quality detection adds robustness beyond corruption augmentation.</p>
+        <div class="acts"><a href="https://github.com/Shadman19/ecg-lead-quality-locked-analysis" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">LLM evaluation</span>
+        <h3>LLM Safety Eval</h3>
+        <p>Rubric-based scores for hallucination risk, toxicity, bias, consistency, reasoning quality and relevance, with a radar chart that shows where it breaks down.</p>
+        <div class="acts"><a href="https://shadman19.github.io/llm-safety-eval/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/llm-safety-eval" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">Medical imaging</span>
+        <h3>VisionMed</h3>
+        <p>Vision Transformer analysis of X-ray, MRI, CT and histology images, with detections, Grad-CAM heatmaps, patch views and attention weights.</p>
+        <div class="acts"><a href="https://shadman19.github.io/visionmed/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/visionmed" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">Medical imaging</span>
+        <h3>MedSAM2</h3>
+        <p>Click a prompt point on a scan and SAM2 returns a segmentation mask with Dice and IoU scores. No organ-specific training.</p>
+        <div class="acts"><a href="https://shadman19.github.io/medsam2/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/medsam2" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">LLM systems</span>
+        <h3>Scalable LLM engine</h3>
+        <p>A gateway that owns keys, caching, cost tracking and routing; Redis as cache, queue and cost counter; workers that autoscale on queue depth; a full Kubernetes setup.</p>
+        <div class="acts"><a href="https://shadman19.github.io/scalable-llm-engine/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/scalable-llm-engine" target="_blank" rel="noopener">Code</a></div>
+      </div>
+      <div class="card">
+        <span class="label">Retrieval</span>
+        <h3>MedRAG clinical QA</h3>
+        <p>Retrieves and ranks clinical source passages first, then answers only from them, with sources cited.</p>
+        <div class="acts"><a href="https://shadman19.github.io/medrag-clinical-qa/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/medrag-clinical-qa" target="_blank" rel="noopener">Code</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="talks">
+    <div class="two">
+      <div>
+        <h3>Talks and presentations</h3>
+        <ul class="list">
+          <li><b>Invited research talk</b> to Lei Xing's group, Stanford University (virtual), 2026</li>
+          <li><b>Security and Adversarial Threats in Large Language Model Ecosystems</b>, invited cyber research talk, Old Dominion University</li>
+          <li><b>Privacy-Preserving Deep Learning and Fully Homomorphic Encryption</b>, guest lecture, Machine Learning II, Old Dominion University</li>
+          <li><b>Post-Deployment Model Calibration under Non-IID Data using Homomorphic Encryption</b>, poster, Commonwealth Cyber Initiative Symposium, Richmond, 2026</li>
+          <li><b>AI-Driven Integration of Genomic Variants and Gleason Stratification for Prostate Cancer Biomarker Discovery</b>, poster, Commonwealth Cyber Initiative Symposium, Richmond, 2026</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Experience and education</h3>
+        <div class="rows">
+          <div class="item">
+            <div class="when">Current</div>
+            <div>
+              <div class="role">PhD Candidate, Graduate Research and Teaching Assistant</div>
+              <div class="org">Old Dominion University</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="when">2020 to 2022</div>
+            <div>
+              <div class="role">Data Science, Flight Operations Technical</div>
+              <div class="org">Biman Bangladesh Airlines</div>
+              <div class="note">Built an analytics pipeline associated with about $200K in annual savings.</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="when">M.Sc., B.Sc.</div>
+            <div>
+              <div class="role">Electrical and Electronic Engineering; Mechatronics Engineering</div>
+              <div class="org">Rajshahi University of Engineering and Technology</div>
+              <div class="note">ICT Division, Government of Bangladesh fellowship, 2022.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <h2 style="font-size:clamp(1.35rem,3vw,1.7rem);font-weight:600">Contact</h2>
+        <p style="margin-top:.4rem">For research questions, collaborations, talks or the code, email is best.</p>
+      </div>
+      <div class="email">
+        <span id="addr">shadmanmahmood9@gmail.com</span>
+        <button type="button" id="copybtn">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; 2026 Shadman Mahmood Khan Pathan</footer>
+</main>
+
+<script>
+  (function(){
+    var root=document.documentElement, tgl=document.getElementById('themetgl');
+    var stored=null; try{stored=localStorage.getItem('theme');}catch(e){}
+    if(stored==='dark'||stored==='light'){root.setAttribute('data-theme',stored);}
+    function cur(){
+      var a=root.getAttribute('data-theme'); if(a) return a;
+      return (window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+    }
+    tgl.addEventListener('click',function(){
+      var next=cur()==='dark'?'light':'dark';
+      root.setAttribute('data-theme',next);
+      try{localStorage.setItem('theme',next);}catch(e){}
+    });
+    var btn=document.getElementById('copybtn'), addr=document.getElementById('addr');
+    btn.addEventListener('click',function(){
+      function sel(){var r=document.createRange(); r.selectNodeContents(addr); var s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Selected';}
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(addr.textContent).then(function(){btn.textContent='Copied';},sel);
+      } else sel();
+      setTimeout(function(){btn.textContent='Copy';},1800);
+    });
+  })();
+</script>
+</body>
+</html>
