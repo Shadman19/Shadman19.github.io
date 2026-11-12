@@ -184,7 +184,7 @@
       <div class="thread">
         <span class="label">Calibration under shift</span>
         <h3>Recalibrating a deployed model on encrypted features</h3>
-        <p>A model that drifts at a new hospital is corrected on CKKS-encrypted features, so the hospital shares no raw data, logits or gradients. The work also showed that the approximations that make encryption practical can quietly distort a model's confidence even when it still separates classes well.</p>
+        <p>I study CKKS-based encrypted scoring and post-deployment calibration. In the provided clinical notebook, encrypted dot products are decrypted and the calibration update runs in plaintext; the implementation boundary is documented with the code. Related work studies how approximate computation can preserve predicted labels while degrading probability quality.</p>
         <p class="ev">IEEE ICNC 2026 &middot; about 2 s per correction on a CPU, 64-dimensional features</p>
       </div>
       <div class="thread">
@@ -303,7 +303,7 @@
       <div class="card">
         <span class="label">Research code</span>
         <h3>Encrypted post-deployment calibration</h3>
-        <p>Reference implementation for the ICNC 2026 paper. Only the final classifier layer is updated, under CKKS encryption, with a Chebyshev approximation of softmax. Notebooks for PathMNIST, PneumoniaMNIST and MIMIC-III.</p>
+        <p>Research notebooks associated with the ICNC 2026 calibration work. The reviewed MIMIC-III notebook demonstrates CKKS encrypted dot-product scoring, then decryption and plaintext NumPy calibration. PathMNIST and PneumoniaMNIST notebooks are also included; their implementation boundaries require separate review.</p>
         <div class="acts"><a href="https://github.com/Shadman19/encrypted-calibration-fhe" target="_blank" rel="noopener">Code</a></div>
       </div>
       <div class="card">
@@ -327,13 +327,13 @@
       <div class="card">
         <span class="label">Medical imaging</span>
         <h3>VisionMed</h3>
-        <p>Vision Transformer analysis of X-ray, MRI, CT and histology images, with detections, Grad-CAM heatmaps, patch views and attention weights.</p>
+        <p>Educational medical-image UI simulation with canvas overlays, a patch-grid view and random sample scores. It does not run a Vision Transformer or compute Grad-CAM; displayed results and latency are simulated.</p>
         <div class="acts"><a href="https://shadman19.github.io/visionmed/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/visionmed" target="_blank" rel="noopener">Code</a></div>
       </div>
       <div class="card">
         <span class="label">Medical imaging</span>
         <h3>MedSAM2</h3>
-        <p>Click a prompt point on a scan and SAM2 returns a segmentation mask with Dice and IoU scores. No organ-specific training.</p>
+        <p>Educational prompt-based segmentation UI simulation. JavaScript draws synthetic masks and random sample Dice, IoU and latency values; no SAM2 model inference or measured segmentation accuracy is implemented.</p>
         <div class="acts"><a href="https://shadman19.github.io/medsam2/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/Shadman19/medsam2" target="_blank" rel="noopener">Code</a></div>
       </div>
       <div class="card">
